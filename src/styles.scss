@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+/* You can add global styles to this file, and also import other style files */
+
 body {
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
     background: linear-gradient(to right, #25c481, #25b7c4);
@@ -80,6 +83,7 @@ td {
     &>div {
         width: 400px;
         position: absolute;
+        // height: 500px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
