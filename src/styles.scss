@@ -154,7 +154,7 @@ form {
         width: auto;
     }
     .submit-container {
-        text-align: right;
+        text-align: center;
     }
     .submit {
         background-color: #25b7c4;
@@ -206,8 +206,14 @@ a {
 
 .btn {
     background-color: #fff;
-    padding: 1em 1.5em;
-    border-radius: 3px;
+    border: solid 1px #25c481;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     text-decoration: none;
     i {
         padding-right: 0.3em;

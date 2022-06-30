@@ -36,13 +36,15 @@ export class PlayerService {
   }
 
   editPlayer(newPlayerData:any) {
-    const $key = new newPlayerData.$key;
+    const $keyP = newPlayerData.$key;
     delete(newPlayerData.$key);
-    this.playersDB.update($key, newPlayerData)
+    this.db.list('/player').update($keyP, newPlayerData);
+    //this.playersDB.update($key, newPlayerData)
   }
 
   deletePlayer(id: string) {
-    this.playersDB.remove(id);
+    this.db.list('/player').remove(id);
+    //this.playersDB.remove(id);
   }
 
 }

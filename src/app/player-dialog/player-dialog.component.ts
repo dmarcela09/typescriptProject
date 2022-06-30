@@ -14,7 +14,6 @@ import { Player } from '../interfaces/player';
   styleUrls: ['./player-dialog.component.scss'],
 })
 
-//type key = keyof Country;
 export class PlayerDialogComponent implements OnInit {
   @Input() player!: Player;
   @Output() closeDialog: EventEmitter<boolean> = new EventEmitter(); //por medio de eventos
@@ -24,16 +23,11 @@ export class PlayerDialogComponent implements OnInit {
     label: key,
     key: (<any>Country)[key],
   }));
-  // public countries = Object.keys(Country).map((key) => ({
-  //   label: key,
-  //   key: (Country as any)[String(key)],
-  // }));
   public squadNumber = Object.keys(SquadNumber)
     .slice(Object.keys(SquadNumber).length / 2)
     .map((key) => ({
       label: key,
       key: (<any>SquadNumber)[key],
-      //key: SquadNumber[Number(key)],
     }));
 
   constructor(
@@ -42,8 +36,6 @@ export class PlayerDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.countries);
-    console.log(this.squadNumber);
     this.teamService
       .getTeam()
       .pipe(take(1))
@@ -71,12 +63,16 @@ export class PlayerDialogComponent implements OnInit {
   }
 
   private editPlayer(playerFormValue: any) {
+
     const playerFormValueKey = { ...playerFormValue, $key: this.player.$key };
+
     const playerFormValueWithFormattedKey = {
       ...playerFormValue,
       key: this.player.$key,
     };
+
     delete playerFormValueWithFormattedKey.$key;
+
     const modifiedPlayers = this.team.players
       ? this.team.players.map((player) => {
           return player.$key === this.player.$key
@@ -84,6 +80,7 @@ export class PlayerDialogComponent implements OnInit {
             : player;
         })
       : this.team.players;
+
     const formattedTeam = {
       ...this.team,
       players: [
@@ -92,22 +89,22 @@ export class PlayerDialogComponent implements OnInit {
           : [playerFormValueWithFormattedKey]),
       ],
     };
-    this.playerService.editPlayer(playerFormValueWithFormattedKey);
+    this.playerService.editPlayer(playerFormValueKey);
     this.teamService.editTeam(formattedTeam);
   }
 
   onSubmit(playerForm: NgForm) {
     const playerFormValue = { ...playerForm.value };
-    if (playerForm.valid) {
-      playerFormValue.leftFooted =
-        playerFormValue.leftFooted === '' ? false : playerFormValue.leftFooted;
-    }
-    if (this.player) {
+    playerFormValue.leftFooted = playerFormValue.leftFooted === undefined ? false : playerFormValue.leftFooted;
+    if (this.player && playerForm.valid) {
       this.editPlayer(playerFormValue);
     } else {
       this.newPlayer(playerFormValue);
     }
-    window.location.replace('#');
+    setTimeout(() => {
+      window.location.replace('#');
+    });
+    //window.location.replace('#');
   }
 
   onClose() {

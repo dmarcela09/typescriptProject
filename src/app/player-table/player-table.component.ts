@@ -11,55 +11,6 @@ import { TeamService } from '../services/team.service';
   styleUrls: ['./player-table.component.scss'],
 })
 export class PlayerTableComponent implements OnInit {
-  // public players$: Observable<Player[]> = new Observable<Player[]>();
-  // public selectedPlayer!: Player;
-  // public showModal = false;
-
-  // constructor(
-  //   private playerService: PlayerService,
-  //   private teamService: TeamService
-  // ) {}
-
-  // ngOnInit(): void {
-  //   this.players$ = this.playerService.getPlayer();
-  // }
-
-  // newPlayer() {
-  //   this.showModal = true;
-  //   this.selectedPlayer = null!;
-  //   setTimeout(() => {
-  //     window.location.replace('#open-modal');
-  //   });
-  // }
-
-  // editPlayer(player: Player) {
-  //   this.selectedPlayer = { ...player };
-  //   this.showModal = true;
-  //   setTimeout(() => {
-  //     window.location.replace('#open-modal');
-  //   });
-  // }
-
-  // deletePlayer(player: Player) {
-  //   this.teamService
-  //     .getTeam()
-  //     .pipe(take(1))
-  //     .subscribe((teams) => {
-  //       const modifiedPlayer = teams[0].players
-  //         ? teams[0].players.filter((p) => p.$key !== player.$key)
-  //         : teams[0].players;
-  //       const formattedTeam = {
-  //         ...teams[0],
-  //         players: [...modifiedPlayer]
-  //       };
-  //       this.playerService.deletePlayer(player.$key);
-  //       this.teamService.editTeam(formattedTeam);
-  //       });
-  // }
-
-  // closeDialog() {
-  //   this.showModal = false;
-  // }
 
   public players$!: Observable<Player[]>;
   public selectedPlayer!: Player;
@@ -91,13 +42,14 @@ export class PlayerTableComponent implements OnInit {
       .getTeam()
       .pipe(take(1))
       .subscribe(teams => {
-        const moddifiedPlayers = teams[0].players ? teams[0].players.filter((p: any) => p.key !== player.$key) : teams[0].players;
-        const formattedTeam = {
-          ...teams[0],
-          players: [...moddifiedPlayers]
-        };
+        console.log(teams);
+        const modifiedPlayers = teams[0].players ? teams[0].players.filter((p: any) => p.key !== player.$key) : teams[0].players;
+        // const formattedTeam = {
+        //   ...teams[0],
+        //   players: [...modifiedPlayers]
+        // };
         this.playerService.deletePlayer(player.$key!);
-        this.teamService.editTeam(formattedTeam);
+        //this.teamService.editTeam(formattedTeam);
       });
   }
 
